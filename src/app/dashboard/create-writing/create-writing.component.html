@@ -1,0 +1,41 @@
+<h3>Add New Writing</h3>
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <mat-form-field hintLabel="Max 255 characters">
+      <mat-label>Enter title</mat-label>
+      <input matInput #input maxlength="255" placeholder="Title" required [(ngModel)]="createWriting.Title" name="title"/>
+      <mat-hint [align]="'end'">{{createWriting.Title.length}}/255</mat-hint>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field required>
+      <mat-label>Enter body</mat-label>
+      <textarea matInput #input placeholder="Body" required [(ngModel)]="createWriting.Body" name="body"></textarea>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Type</mat-label>
+      <mat-select required [(ngModel)]="createWriting.Type" name="type">
+        <mat-option [value]="writingType.Notes">Notes</mat-option>
+        <mat-option [value]="writingType.Review">Review</mat-option>
+        <mat-option [value]="writingType.Original">Original</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-checkbox [(ngModel)]="isWritingInProgress" name="is-writing-in-progress">Writing in Progress</mat-checkbox>
+    @if (!isWritingInProgress) 
+    {
+      <div>
+        <mat-form-field [hintLabel]="'Enter value between 0 - ' + currentYear">
+          <mat-label>Enter Year of Completion</mat-label>
+          <input matInput #input type="number" min="0" [max]="currentYear" placeholder="Year of Completion" required [(ngModel)]="createWriting.YearOfCompletion" name="year-of-completion"/>
+        </mat-form-field>
+      </div>
+    }
+  </div>
+  <div>
+    <button mat-stroked-button type="submit">Add New Writing</button>
+  </div>
+</form>
