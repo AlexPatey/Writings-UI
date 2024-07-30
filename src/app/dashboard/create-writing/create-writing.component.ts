@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { MatInputModule } from '@angular/material/input';
@@ -12,27 +12,30 @@ import { type CreateWriting } from '../../models/create-writing.model';
 import { WritingType } from '../../enums/writing-type.enum';
 
 @Component({
-  selector: 'app-new-writing',
+  selector: 'app-create-writing',
   standalone: true,
   imports: [FormsModule, MatInputModule, MatRadioModule, MatSelectModule, MatFormFieldModule, MatCheckboxModule, MatButtonModule],
   templateUrl: './create-writing.component.html',
   styleUrl: './create-writing.component.scss'
 })
-export class NewWritingComponent {
-  protected readonly createWriting: CreateWriting = {
+export class CreateWritingComponent {
+
+  protected readonly currentYear: number = new Date().getFullYear();
+
+  protected readonly writingType = WritingType;
+  
+  protected newCreateWriting: CreateWriting = {
     Title: '',
     Body: '',
     Type: WritingType.Notes,
     YearOfCompletion: null
   };
 
-  protected readonly isWritingInProgress: boolean = false;
+  protected createWriting = output<CreateWriting>();
 
-  protected readonly currentYear: number = new Date().getFullYear();
+  protected isWritingInProgress: boolean = false;
 
-  protected readonly writingType = WritingType;
-
-  onSubmit() {
-
+  onCreateWritingSubmit() {
+    this.createWriting.emit(this.newCreateWriting);
   }
 }

@@ -1,1 +1,13 @@
-<app-new-writing></app-new-writing>
+<app-create-writing (createWriting)="onCreateWriting($event)"></app-create-writing>
+@for (writing of writings; track writing.Id) 
+{
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{writing.Title}}</mat-card-title>
+      <mat-card-subtitle>{{writing.YearOfCompletion === null ? writingType[writing.Type] : writingType[writing.Type] + ' - ' + writing.YearOfCompletion}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{writing.Body}}</p>
+    </mat-card-content>
+  </mat-card>
+}
